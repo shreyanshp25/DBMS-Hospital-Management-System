@@ -1,0 +1,92 @@
+mysql> desc dispensary;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| medId        | int         | NO   | PRI | NULL    |       |
+| diseaseName  | varchar(50) | YES  |     | NULL    |       |
+| med          | varchar(50) | YES  |     | NULL    |       |
+| availability | int         | YES  |     | NULL    |       |
+| depId        | int         | YES  | MUL | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> select * from dispensary;
++-------+--------------------------+-------------------------+--------------+-------+
+| medId | diseaseName              | med                     | availability | depId |
++-------+--------------------------+-------------------------+--------------+-------+
+|     1 | asthama                  | fluticasone             |          100 |     1 |
+|     2 | eczema                   | eczema detox            |           50 |     1 |
+|     3 | eczema                   | re-equil                |           50 |     1 |
+|     4 | asthama                  | Inhaled corticosteroids |           50 |     1 |
+|     5 | asthama                  | Inhaled corticosteroids |           20 |     2 |
+|     6 | hypertension             | norvasc                 |           30 |     2 |
+|     7 | corornary artery disease | angioplast              |            5 |     2 |
+|     8 | coronary artery disease  | aspirin                 |           50 |     3 |
+|     9 | cardiomyopathies         | ranolazine              |           20 |     3 |
+|    10 | common cold              | dolo 650                |           90 |     5 |
+|    11 | dust allergic            | anti histamine          |           80 |     5 |
+|    12 | epilepsy                 | primidone               |           20 |     6 |
+|    13 | alzheimer                | rufinamide              |           12 |     6 |
++-------+--------------------------+-------------------------+--------------+-------+
+13 rows in set (0.00 sec)
+
+mysql> select diseaseName, sum(availability) from dispensary group by diseaseName;
++--------------------------+-------------------+
+| diseaseName              | sum(availability) |
++--------------------------+-------------------+
+| asthama                  |               170 |
+| eczema                   |               100 |
+| hypertension             |                30 |
+| corornary artery disease |                 5 |
+| coronary artery disease  |                50 |
+| cardiomyopathies         |                20 |
+| common cold              |                90 |
+| dust allergic            |                80 |
+| epilepsy                 |                20 |
+| alzheimer                |                12 |
++--------------------------+-------------------+
+10 rows in set (0.00 sec)
+
+mysql> select med from dispensary where diseaseName = 'eczema';
++--------------+
+| med          |
++--------------+
+| eczema detox |
+| re-equil     |
++--------------+
+2 rows in set (0.00 sec)
+
+mysql> select dis.med, dep.depName from dispensary dis join department dep on dis.depId = dep.depId where diseaseName = 'eczema';
++--------------+--------------+
+| med          | depName      |
++--------------+--------------+
+| eczema detox | immunologist |
+| re-equil     | immunologist |
++--------------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> select sum(availability) total_medicines from dispensary;
++-----------------+
+| total_medicines |
++-----------------+
+|             577 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select count(distinct depId) from dispensary;
++-----------------------+
+| count(distinct depId) |
++-----------------------+
+|                     5 |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> select count(distinct med) from dispensary;
++---------------------+
+| count(distinct med) |
++---------------------+
+|                  12 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> notee

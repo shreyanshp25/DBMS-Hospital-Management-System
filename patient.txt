@@ -1,0 +1,75 @@
+mysql>  desc patient;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| patId | int         | NO   | PRI | NULL    |       |
+| name  | varchar(10) | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> select * from patient;
++-------+-----------+------+
+| patId | name      | age  |
++-------+-----------+------+
+|     1 | subho     |   22 |
+|     2 | pranjay   |   22 |
+|     3 | shreyansh |   22 |
+|     4 | nishant   |   22 |
+|     5 | ankita    |   22 |
++-------+-----------+------+
+5 rows in set (0.00 sec)
+
+mysql> select name, age from patient where name like '%a%';
++-----------+------+
+| name      | age  |
++-----------+------+
+| pranjay   |   22 |
+| shreyansh |   22 |
+| nishant   |   22 |
+| ankita    |   22 |
++-----------+------+
+4 rows in set (0.00 sec)
+
+mysql> select name, age from patient where name in('nisant', 'nishant');
++---------+------+
+| name    | age  |
++---------+------+
+| nishant |   22 |
++---------+------+
+1 row in set (0.00 sec)
+
+mysql>  select name, age from patient where name like 's%';
++-----------+------+
+| name      | age  |
++-----------+------+
+| subho     |   22 |
+| shreyansh |   22 |
++-----------+------+
+2 rows in set (0.00 sec)
+
+mysql> select name from patient where age = any(select age from patient where age > 20);
++-----------+
+| name      |
++-----------+
+| subho     |
+| pranjay   |
+| shreyansh |
+| nishant   |
+| ankita    |
++-----------+
+5 rows in set (0.00 sec)
+
+mysql> select name from patient where age = some(select age from patient where age > 20);
++-----------+
+| name      |
++-----------+
+| subho     |
+| pranjay   |
+| shreyansh |
+| nishant   |
+| ankita    |
++-----------+
+5 rows in set (0.00 sec)
+
+mysql> notee

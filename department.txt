@@ -1,0 +1,53 @@
+mysql> use hospital;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_hospital |
++--------------------+
+| department         |
+| dispensary         |
+| doctor             |
+| patient            |
+| patienthistory     |
++--------------------+
+5 rows in set (0.05 sec)
+
+mysql> select * from department;
++-------+-------------------+-------------+-------+
+| depId | depName           | no_of_staff | floor |
++-------+-------------------+-------------+-------+
+|     1 | immunologist      |          25 |     1 |
+|     2 | anesthesiologist  |          15 |     2 |
+|     3 | cardiologist      |           5 |     3 |
+|     4 | dermatologist     |           8 |     2 |
+|     5 | family physicians |          50 |     4 |
+|     6 | neurologist       |           4 |     3 |
+|     7 | oncologist        |           2 |     5 |
++-------+-------------------+-------------+-------+
+7 rows in set (0.00 sec)
+
+mysql> select sum(no_of_staff) as total_staff from department;
++-------------+
+| total_staff |
++-------------+
+|         109 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select max(no_of_staff) as max_staff from department;
++-----------+
+| max_staff |
++-----------+
+|        50 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql>  select depName, max(no_of_staff) from department;
++--------------+------------------+
+| depName      | max(no_of_staff) |
++--------------+------------------+
+| immunologist |               50 |
++--------------+------------------+
+1 row in set (0.00 sec)
+
+mysql> notee

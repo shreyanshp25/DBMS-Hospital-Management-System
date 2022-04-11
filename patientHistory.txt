@@ -1,0 +1,128 @@
+mysql>  desc patienthistory;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| id           | int         | NO   | PRI | NULL    |       |
+| docId        | int         | YES  | MUL | NULL    |       |
+| prescription | varchar(50) | YES  |     | NULL    |       |
+| patId        | int         | YES  | MUL | NULL    |       |
+| date         | date        | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from patienthistory;
++----+-------+------------------------------+-------+------------+
+| id | docId | prescription                 | patId | date       |
++----+-------+------------------------------+-------+------------+
+|  1 |     1 | take medicines 2 times a day |     1 | 2020-11-12 |
+|  2 |     2 | take medicines 2 times a day |     2 | 2021-12-11 |
+|  3 |     3 | take medicines 2 times a day |     3 | 2019-11-10 |
+|  4 |     4 | take medicines 2 times a day |     4 | 2018-08-10 |
+|  5 |     4 | take medicines 3 times a day |     3 | 2020-07-11 |
+|  6 |     5 | take medicines 2 times a day |     5 | 2020-12-01 |
+|  7 |     7 | don't eat chewing gums       |     1 | 2022-01-01 |
++----+-------+------------------------------+-------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select doc.name, pat.name from patienthistory pathis join doctor doc on doc.docId = pathis.docId join patient pat on pathis.patId = pat.patId;
++-------------------+-----------+
+| name              | name      |
++-------------------+-----------+
+| dr raj kundra     | subho     |
+| dr mahesh nanda   | subho     |
+| dr rahul chauhan  | pranjay   |
+| dr rajeev sinha   | shreyansh |
+| dr kb srivastava  | shreyansh |
+| dr kb srivastava  | nishant   |
+| dr rajesh agarwal | ankita    |
++-------------------+-----------+
+7 rows in set (0.00 sec)
+
+mysql> select doc.name, pat.name, pathis.prescription from patienthistory pathis join doctor doc on doc.docId = pathis.docId join patient pat on pathis.patId = pat.patId;
++-------------------+-----------+------------------------------+
+| name              | name      | prescription                 |
++-------------------+-----------+------------------------------+
+| dr raj kundra     | subho     | take medicines 2 times a day |
+| dr mahesh nanda   | subho     | don't eat chewing gums       |
+| dr rahul chauhan  | pranjay   | take medicines 2 times a day |
+| dr rajeev sinha   | shreyansh | take medicines 2 times a day |
+| dr kb srivastava  | shreyansh | take medicines 3 times a day |
+| dr kb srivastava  | nishant   | take medicines 2 times a day |
+| dr rajesh agarwal | ankita    | take medicines 2 times a day |
++-------------------+-----------+------------------------------+
+7 rows in set (0.00 sec)
+
+mysql> select doc.name, pat.name from patienthistory pathis join doctor doc on doc.docId = pathis.docId join patient pat on pathis.patId = pat.patId where doc.depId = 3;
++---------------+-------+
+| name          | name  |
++---------------+-------+
+| dr raj kundra | subho |
++---------------+-------+
+1 row in set (0.00 sec)
+
+mysql> select doc.name, dep.depName, pat.name from patienthistory pathis, patient pat, doctor doc, department dep where doc.depId = dep.depId and pathis.docId = doc.docId and pathis.patId = pat.patId;
++-------------------+-------------------+-----------+
+| name              | depName           | name      |
++-------------------+-------------------+-----------+
+| dr raj kundra     | cardiologist      | subho     |
+| dr mahesh nanda   | anesthesiologist  | subho     |
+| dr rahul chauhan  | immunologist      | pranjay   |
+| dr rajeev sinha   | neurologist       | shreyansh |
+| dr kb srivastava  | family physicians | shreyansh |
+| dr kb srivastava  | family physicians | nishant   |
+| dr rajesh agarwal | dermatologist     | ankita    |
++-------------------+-------------------+-----------+
+7 rows in set (0.00 sec)
+
+mysql> select doc.name, dep.depName, pat.name, pathis.date from patienthistory pathis, patient pat, doctor doc, department dep where doc.depId = dep.depId and pathis.docId = doc.docId and pathis.patId = pat.patId;
++-------------------+-------------------+-----------+------------+
+| name              | depName           | name      | date       |
++-------------------+-------------------+-----------+------------+
+| dr raj kundra     | cardiologist      | subho     | 2020-11-12 |
+| dr mahesh nanda   | anesthesiologist  | subho     | 2022-01-01 |
+| dr rahul chauhan  | immunologist      | pranjay   | 2021-12-11 |
+| dr rajeev sinha   | neurologist       | shreyansh | 2019-11-10 |
+| dr kb srivastava  | family physicians | shreyansh | 2020-07-11 |
+| dr kb srivastava  | family physicians | nishant   | 2018-08-10 |
+| dr rajesh agarwal | dermatologist     | ankita    | 2020-12-01 |
++-------------------+-------------------+-----------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select doc.name, dep.depName, pat.name, pathis.date from patienthistory pathis, patient pat, doctor doc, department dep where doc.depId = dep.depId and pathis.docId = doc.docId and pathis.patId = pat.patId group by doc.name;
++-------------------+-------------------+-----------+------------+
+| name              | depName           | name      | date       |
++-------------------+-------------------+-----------+------------+
+| dr raj kundra     | cardiologist      | subho     | 2020-11-12 |
+| dr mahesh nanda   | anesthesiologist  | subho     | 2022-01-01 |
+| dr rahul chauhan  | immunologist      | pranjay   | 2021-12-11 |
+| dr rajeev sinha   | neurologist       | shreyansh | 2019-11-10 |
+| dr kb srivastava  | family physicians | shreyansh | 2020-07-11 |
+| dr rajesh agarwal | dermatologist     | ankita    | 2020-12-01 |
++-------------------+-------------------+-----------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select doc.name, dep.depName, pat.name, pathis.date from patienthistory pathis, patient pat, doctor doc, department dep where doc.depId = dep.depId and pathis.docId = doc.docId and pathis.patId = pat.patId having depName = 'cardiologist';
++---------------+--------------+-------+------------+
+| name          | depName      | name  | date       |
++---------------+--------------+-------+------------+
+| dr raj kundra | cardiologist | subho | 2020-11-12 |
++---------------+--------------+-------+------------+
+1 row in set (0.00 sec)
+
+mysql>  select doc.name, dep.depName, pat.name, pathis.date from patienthistory pathis, patient pat, doctor doc, department dep where doc.depId = dep.depId and pathis.docId = doc.docId and pathis.patId = pat.patId having pat.name = 'ankita';
++-------------------+---------------+--------+------------+
+| name              | depName       | name   | date       |
++-------------------+---------------+--------+------------+
+| dr rajesh agarwal | dermatologist | ankita | 2020-12-01 |
++-------------------+---------------+--------+------------+
+1 row in set (0.00 sec)
+
+mysql> select doc.name, dep.depName, pat.name, pathis.date from patienthistory pathis, patient pat, doctor doc, department dep where doc.depId = dep.depId and pathis.docId = doc.docId and pathis.patId = pat.patId having pathis.date in("2020-07-11", "2022-10-12");
++------------------+-------------------+-----------+------------+
+| name             | depName           | name      | date       |
++------------------+-------------------+-----------+------------+
+| dr kb srivastava | family physicians | shreyansh | 2020-07-11 |
++------------------+-------------------+-----------+------------+
+1 row in set (0.00 sec)
+
+mysql> notee
