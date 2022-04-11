@@ -1,0 +1,81 @@
+mysql> insert into dispensary values(8, "coronary artery disease", "aspirin", 50, 3);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into dispensary values(9, "cardiomyopathies", "ranolazine", 20, 3);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into dispensary values(10, "common cold", "dolo 650", 90, 5);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into dispensary values(11, "dust allergic", "anti histamine", 80, 5);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into dispensary values(12, "epilepsy", "primidone", 20, 6);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> alter table doctor modify column name varchar(25);
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table doctor modify column specialist varchar(25);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into doctor values(1, "dr raj kundra", 10, "cardiologist", 3);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into doctor values(2, "dr rahul chauhan", 20, "immunologist", 1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into doctor values(3, "dr rajeev sinha", 15, "neurologist", 6);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into doctor values(4, "dr kb srivastava", 25, "family physician", 5);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into doctor values(5, "dr rajesh agarwal", 5, "dermatalogist", 4);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into doctor values(6, "dr shiva", 8, "oncologist", 7);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into doctor values(7, "dr mahesh nanda", 23, "anesthesiologist", 2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into patient values(1, "subho", 22);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into patient values(2, "pranjay", 22);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into patient values(3, "shreyansh", 22);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into patient values(4, "nishant", 22);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into patient values(5, "ankita", 22);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into patienthistory values(1, 1, "take medicines 2 times a day", 1, "12-MAY-20");
+ERROR 1292 (22007): Incorrect date value: '12-MAY-20' for column 'date' at row 1
+mysql> insert into patienthistory values(1, 1, "take medicines 2 times a day", 1, "2020-11-12");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into patienthistory values(2, 2, "take medicines 2 times a day", 2, "2021-12-11");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into patienthistory values(3, 3, "take medicines 2 times a day", 3, "2019-11-10");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into patienthistory values(4, 4, "take medicines 2 times a day", 4, "2018-08-10");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into patienthistory values(5, 4, "take medicines 3 times a day", 3, "2020-07-11");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into patienthistory values(6, 5, "take medicines 2 times a day", 5, "2020-12-01");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into patienthistory values(7, 7, "don't eat chewing gums",1 , "2022-01-01");
+Query OK, 1 row affected (0.01 sec)
