@@ -1,0 +1,50 @@
+mysql> create view immuno_medicines as select d.medId, d.med, d.availability from dispensary d join department dep on d.depId = dep.depId where dep.depName = 'immunologist';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from immuno_medicines;
++-------+-------------------------+--------------+
+| medId | med                     | availability |
++-------+-------------------------+--------------+
+|     1 | fluticasone             |          100 |
+|     2 | eczema detox            |           50 |
+|     3 | re-equil                |           50 |
+|     4 | Inhaled corticosteroids |           50 |
++-------+-------------------------+--------------+
+4 rows in set (0.02 sec)
+
+mysql> create view cardio_doctors as select doc.name, doc.yearsOfExperience from doctor doc join department dep on doc.depId = dep.depId where dep.depName = 'cardiologist';
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select * from cardio_doctors;
++-----------------+-------------------+
+| name            | yearsOfExperience |
++-----------------+-------------------+
+| dr raj kundra   |                10 |
+| dr neema mathur |                 7 |
++-----------------+-------------------+
+2 rows in set (0.01 sec)
+
+mysql> create view my_consultations as select doc.name, patHis.prescription, patHis.date from patientHistory patHis join doctor doc on patHis.docId = doc.docId join patient pat on patHis.patId = pat.patId where pat.name = 'ankita';
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>  select * from my_consultations;
++-------------------+------------------------------+------------+
+| name              | prescription                 | date       |
++-------------------+------------------------------+------------+
+| dr rajesh agarwal | take medicines 2 times a day | 2020-12-01 |
++-------------------+------------------------------+------------+
+1 row in set (0.01 sec)
+
+mysql> create view my_consultations1 as select doc.name, patHis.prescription, patHis.date from patientHistory patHis join doctor doc on patHis.docId = doc.docId join patient pat on patHis.patId = pat.patId where pat.name = 'subho';
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from my_consultations1;
++-----------------+------------------------------+------------+
+| name            | prescription                 | date       |
++-----------------+------------------------------+------------+
+| dr raj kundra   | take medicines 2 times a day | 2020-11-12 |
+| dr mahesh nanda | don't eat chewing gums       | 2022-01-01 |
++-----------------+------------------------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> notee
